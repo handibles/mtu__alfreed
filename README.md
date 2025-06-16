@@ -34,9 +34,13 @@ Time was generally measured using both the `time` bash-builtin, and `command tim
 
 ### benchmarking outcomes
 
+![`compiled vsearch outcomes`](https://github.com/handibles/mtu__alfreed/blob/main/documents/mtu__alfreed__notes.png?raw=true)
+
 `VSEARCH` is an excellent programme, and an exemplar of open-source computational biology. Full results forthcoming via link etc. at publication, but in summary:
 
  - `search_exact` is blisteringly fast _and_ accurate, **if** you can assume perfect matches are available in your database. Accuracy is ~100%.
  - `usearch_global` is second fastest of the methods evaluated, and increasingly accurate with longer sequences (duh): 95-99%, depending on redundancy of sequence database
  - `SINTAX` is slower and less exact in its match, but expected to be more robust if faced with sequences outside of the database: 65-95%, again influenced by (seq_length)*(seq_db)   
  - differences in sequence length are the biggest factor; followed (and compounded) by differences in database composition
+
+
