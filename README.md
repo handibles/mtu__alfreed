@@ -1,12 +1,15 @@
-### `VSEARCH` benchmarking for `ALFREED`
+## `VSEARCH` benchmarking for `ALFREED`
 
-Contains final scripts used to explore benchmarking of `VSEARCH` in its accuracy and performance at assigning "full length" (1450-1550bp) and "V3V4" (390-440bp) 16S RNA subunit genes for the upcoming `ALFREED` suite.
+Contains final scripts used to explore benchmarking of [`VSEARCH`](https://github.com/torognes/vsearch) in its accuracy and performance at assigning "full length" (1450-1550bp) and "V3V4" (390-440bp) 16S RNA subunit genes for the upcoming `ALFREED` suite.
 
-Test **databases** was prepared by primary author M. Leske from GTDB and GG2 (from memory):
+### setup
+
+Test **databases** were prepared by primary project author M. Leske from [the GTDB](https://gtdb.ecogenomic.org) and [GreenGenes2](https://greengenes2.ucsd.edu) databases:
 
  - remove reads outside the 1450-1550 range
  - remove reads which could be considered duplicates at the species level
  - process the header sequences for convenience
+
 
 Test **query sequences** were then prepared by: 
 
@@ -16,20 +19,25 @@ Test **query sequences** were then prepared by:
  - randomly subset matching sequences to create 100 files with 1000 sequences each
 
 
-The outcome of this was 2*2*3*100*1000 = 1,200,000 sequences to test classification.
+The outcome of this was `2x2x3x1001000 = 1,200,000` sequences to test classification.
 
-`VSEARCH` was then downloaded and placed in local path (binary doesn't require additional tools). Exploring the abilities of `VSEARCH` was fair and gamey fun, with several approaches tested:
+`VSEARCH` was then downloaded and placed in local path (binary doesn't require additional tools and no `conda` lollygagging). 
+
+
+### running 
+
+`VSEARCH` was fair and gamey fun, with great docs. Several approaches tested:
 
  - `SINTAX` - a k-mer ranking similarity measure used to establish likely taxonomic placement
  - `usearch_global` - an optimised global alignment method
  - `usearch-self` - using the `usearch_global` method, but specifying that self-self matches (checked via the sequence fasta header) should be ignored
- - `search-exact' - a sequence hash-and-collide approach
+ - `search_exact` - a sequence hash-and-collide approach
  - "some" additional tweaking of parameters to optimise outputs. 
 
 
 ### measuring accuracy and time
 
-Time was generally measured using both the `time` bash-builtin, and `command time`. Accuracy was evaluated at multiple levels for sake of amusing regex conversations, but judged based on whether the _"Genus species"_ binomial matched.
+Time was generally measured using both the `time` bash-builtin, and `command time` for additional insight into memory (RSS) usage. Accuracy was evaluated at multiple levels for sake of amusing regex conversations, but judged based on whether the _"Genus species"_ binomial matched. Offerings and weeping supplications were also provided to [`GNU-parallel`](https://zenodo.org/records/14207479).
 
 
 ### benchmarking outcomes
